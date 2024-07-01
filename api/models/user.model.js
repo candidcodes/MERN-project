@@ -1,20 +1,18 @@
-const { Timestamp } = require('mongodb')
 const { Schema, model } = require('mongoose')
+const { stringRequired, booleanTrue, extraConfig } = require('../lib')
 
 
 const User = model('User', new  Schema({
-    name: {type: string, required: true},
-    email: {type: string, requred: true, unique: true},
-    password: {type: string, required: true},
-    phone: {type: string, required: true, maxLength: 30},
-    address: {type: string, required: true}, 
-    role: {type: string, enum: ['admin', 'staff', 'customer'], default: 'customer'},
-    status: {type: Boolean, default: true}
+    name: stringRequired,
 
-}, {
-    timestamps: true,
-    autoIndex: true,
-    autoCreate: true,
-}))
+    email: {...stringRequired, unique: true},
+
+    password: stringRequired,
+    phone: {...stringRequired, maxLength: 30},
+    address: stringRequired, 
+    role: {type: string, enum: ['admin', 'staff', 'customer'], default: 'customer'},
+    status: booleanTrue
+
+}, extraConfig))
 
 module.exports = User;
