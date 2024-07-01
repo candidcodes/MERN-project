@@ -1,4 +1,4 @@
-const { Timestamp } = require('mongodb')
+
 const { Schema, model } = require('mongoose')
 const { stringRequired, booleanTrue, extraConfig } = require('../lib')
 

@@ -10,4 +10,6 @@ let extraConfig = {
     autoCreate: true,
 }
 
-module.exports = { stringRequired, booleanTrue, extraConfig }
+let foreignConfig = {type: Schema.Types.ObjectId, required: true}
+
+module.exports = { stringRequired, booleanTrue, extraConfig, foreignConfig }
