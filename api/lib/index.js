@@ -1,3 +1,5 @@
+const {Schema} = require ('mongoose')
+
 let stringRequired = {
     type: String,
     required: true
@@ -10,6 +12,11 @@ let extraConfig = {
     autoCreate: true,
 }
 
+let numberRequired = {
+    type: Number,
+    required: true
+}
+
 let foreignConfig = {type: Schema.Types.ObjectId, required: true}
 
-module.exports = { stringRequired, booleanTrue, extraConfig, foreignConfig }
+module.exports = { stringRequired, booleanTrue, extraConfig, foreignConfig, numberRequired }

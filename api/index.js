@@ -1,6 +1,7 @@
 const express = require('express')
 const { config } = require('dotenv')
 const mongoose  = require('mongoose')
+const {User, Review, Product, Order, Detail, Category} = require('./models')
 
 config()
 
@@ -25,4 +26,12 @@ app.listen(port, async()=> {
 
     await mongoose.connect(mongo)
     console.log("mongo db connected")
+
+    const users = await User.find()
+    console.log(users)
+
+    const category = await Category.find()
+    console.log(category)
+
+
 })
