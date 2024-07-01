@@ -1,3 +1,4 @@
+const Brand = require('./brand.model.js')
 const Category = require('./category.model.js')
 const Detail = require('./detail.model.js')
 const Order = require('./order.model.js')

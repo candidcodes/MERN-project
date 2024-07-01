@@ -11,7 +11,7 @@ const Product = model('Product', new  Schema({
     discountedPrice : {type: Number, default: 0},
     images: [stringRequired],
     categoryId: {...foreignConfig, ref: 'Category' },
-    // brandId: {...foreignConfig, ref: 'Brand' },
+    brandId: {...foreignConfig, ref: 'Brand' },
     status: booleanTrue
 
 }, extraConfig))

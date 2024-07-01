@@ -27,11 +27,14 @@ app.listen(port, async()=> {
     await mongoose.connect(mongo)
     console.log("mongo db connected")
 
-    const users = await User.find()
-    console.log(users)
+    // const users = await User.find()
+    // console.log(users)
 
-    const category = await Category.find()
-    console.log(category)
+    // const category = await Category.find()
+    // console.log(category)
+
+    // const review = await Review.find()
+    // console.log(review)
 
 
 })
