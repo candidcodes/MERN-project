@@ -10,7 +10,7 @@ const User = model('User', new  Schema({
     password: stringRequired,
     phone: {...stringRequired, maxLength: 30},
     address: stringRequired, 
-    role: {type: string, enum: ['admin', 'staff', 'customer'], default: 'customer'},
+    role: {type: String, enum: ['admin', 'staff', 'customer'], default: 'customer'},
     status: booleanTrue
 
 }, extraConfig))

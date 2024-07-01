@@ -11,4 +11,4 @@ const Review = model('Review', new  Schema({
 
 }, extraConfig))
 
-module.exports = review;
+module.exports = Review;

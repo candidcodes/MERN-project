@@ -3,7 +3,7 @@ const { stringRequired, extraConfig, foreignConfig, numberRequired } = require('
 
 
 
-const Review = model('Review', new  Schema({
+const Detail = model('Detail', new  Schema({
     productId: {...foreignConfig, ref: 'Product'},
     orderId: {...foreignConfig, ref: 'order'},
     price: numberRequired,
@@ -11,4 +11,4 @@ const Review = model('Review', new  Schema({
 
 }, extraConfig))
 
-module.exports = Review;
+module.exports = Detail;
