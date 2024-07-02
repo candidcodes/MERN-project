@@ -2,6 +2,8 @@ const express = require('express')
 const { config } = require('dotenv')
 const mongoose  = require('mongoose')
 const {User, Review, Product, Order, Detail, Category} = require('./models')
+const routes = require('./routes')
+const cors = require('cors')
 
 config()
 
@@ -10,8 +12,12 @@ const mongo = process.env.MONGO_DB
 
 const app = express()
 
+app.use(cors())
+
 app.use(express.json())
 app.use(express.urlencoded())
+
+app.use(routes)
 
 app.use((error, req, res, next) => {
     res.status(error.status || 400)
