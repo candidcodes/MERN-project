@@ -22,7 +22,8 @@ app.use(routes)
 app.use((error, req, res, next) => {
     res.status(error.status || 400)
     res.send({
-        message: error.message || 'Problem while processing request'
+        message : error.message || 'Problem while processing request',
+        errors : error.errors
     })
 })
 
