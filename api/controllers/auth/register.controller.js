@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs')
 const { User } = require('../../models')
+const { validationError, errorMsg } = require('../../lib')
 
 class RegisterCtrl {
     register = async(req, res, next) => {
@@ -17,16 +18,12 @@ class RegisterCtrl {
                     message: 'Thank you for regestering'
                 })
             }else{
-                next({
-                    message : 'There seems to be some validation problem',
-                    status: 422,
-                    errors: {
-                        password: 'the password is not confirmed'
-                    }
+                validationError(next, {
+                    password: 'The password is not confirmed'
                 })
             }
         } catch (error){
-            console.log(error)
+            errorMsg(next, error)
         }
     }
 }

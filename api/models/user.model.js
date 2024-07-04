@@ -8,7 +8,7 @@ const User = model('User', new  Schema({
     email: {...stringRequired, unique: true},
 
     password: stringRequired,
-    phone: {...stringRequired, maxLength: 30},
+    phone: {...stringRequired, maxLength: [30, 'the phone must be less than 30 char']},
     address: stringRequired, 
     role: {type: String, enum: ['admin', 'staff', 'customer'], default: 'customer'},
     status: booleanTrue
