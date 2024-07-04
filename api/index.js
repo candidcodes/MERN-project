@@ -1,3 +1,5 @@
+require('module-alias/register')
+
 const express = require('express')
 const { config } = require('dotenv')
 const mongoose  = require('mongoose')

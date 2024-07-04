@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
-const { User } = require('../../models')
-const { validationError, errorMsg } = require('../../lib')
+const { User } = require('@/models')
+const { validationError, errorMsg } = require('@/lib')
 
 class RegisterCtrl {
     register = async(req, res, next) => {
