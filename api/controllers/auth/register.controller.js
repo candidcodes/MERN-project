@@ -16,9 +16,6 @@ class RegisterCtrl {
                 res.send({
                     message: 'Thank you for regestering'
                 })
-
-
-
             }else{
                 next({
                     message : 'There seems to be some validation problem',
