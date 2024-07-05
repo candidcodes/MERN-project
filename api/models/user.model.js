@@ -7,7 +7,7 @@ const User = model('User', new  Schema({
 
     email: {...stringRequired, unique: true},
 
-    password: stringRequired,
+    password: { ...stringRequired, select: false },
     phone: {...stringRequired, maxLength: [30, 'the phone must be less than 30 char']},
     address: stringRequired, 
     role: {type: String, enum: ['admin', 'staff', 'customer'], default: 'customer'},
