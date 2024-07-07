@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose')
-const { stringRequired, extraConfig, foreignConfig } = require('../lib');
+const { stringRequired, extraConfig, foreignConfig } = require("@/lib/constants")
 
 
 

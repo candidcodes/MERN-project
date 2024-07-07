@@ -1,4 +1,4 @@
-const { stringRequired, booleanTrue, extraConfig } = require("../lib")
+const { stringRequired, booleanTrue, extraConfig } = require("@/lib/constants")
 
 const {Schema, model} = require('mongoose')
 

@@ -1,6 +1,6 @@
 
 const { Schema, model } = require('mongoose')
-const { stringRequired, booleanTrue, extraConfig } = require('../lib')
+const { stringRequired, booleanTrue, extraConfig } = require("@/lib/constants")
 
 
 const Category = model('Category', new  Schema({

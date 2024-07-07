@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose')
-const { stringRequired, booleanTrue, extraConfig, foreignConfig, numberRequired } = require('../lib');
-
+const { stringRequired, booleanTrue, extraConfig, foreignConfig, numberRequired } = require("@/lib/constants")
 
 
 const Product = model('Product', new  Schema({
