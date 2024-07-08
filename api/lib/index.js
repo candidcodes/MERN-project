@@ -54,8 +54,6 @@ const auth = async (req, res, next) => {
                     status: 401
                 })
             }
-
-
         }else{
             next({
                 message: "authentication token missing",

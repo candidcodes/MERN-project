@@ -1,4 +1,4 @@
-const { errorMsg } = require("@/lib")
+const { errorMsg, validationError } = require("@/lib")
 const { User } = require("@/models")
 const bcrypt = require('bcryptjs')
 
@@ -12,7 +12,7 @@ class profileCtrl {
         try{
             const { name, phone, address } = req.body
 
-            await User.findByIdAndUpdate(req.user._id, {name, phone, address})
+            const user = await User.findByIdAndUpdate(req.user._id, {name, phone, address})
             res.send({
                 message: 'profile updated'
             })
@@ -25,11 +25,11 @@ class profileCtrl {
         try{
             const { oldPassword, newPassword, confirmPassword } = req.body
 
-            await User.findByIdAndUpdate(req.user._id).select('+password')
+            const user = await User.findById(req.user._id).select('+password')
 
-            if(bcrypt.compareSync(password, User.password)){
+            if(bcrypt.compareSync(oldPassword, user.password)){
                 if(newPassword == confirmPassword){
-                    const hash = bcrypt.hashSync(password, 10)
+                    const hash = bcrypt.hashSync(newPassword, 10)
     
                     await User.findByIdAndUpdate(req.user._id, { password: hash })
     
