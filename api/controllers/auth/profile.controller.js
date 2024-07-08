@@ -1,5 +1,7 @@
 const { errorMsg } = require("@/lib")
 const { User } = require("@/models")
+const bcrypt = require('bcryptjs')
+
 
 class profileCtrl {
     detail = async(req, res, next) => {
@@ -19,7 +21,36 @@ class profileCtrl {
         }
     }
 
-    password = async(req, res, next) => {}
+    password = async(req, res, next) => {
+        try{
+            const { oldPassword, newPassword, confirmPassword } = req.body
+
+            await User.findByIdAndUpdate(req.user._id).select('+password')
+
+            if(bcrypt.compareSync(password, User.password)){
+                if(newPassword == confirmPassword){
+                    const hash = bcrypt.hashSync(password, 10)
+    
+                    await User.findByIdAndUpdate(req.user._id, { password: hash })
+    
+                    res.send({
+                        message: 'Password changed'
+                    })
+                }else{
+                    validationError(next, {
+                        password: 'The password is not confirmed'
+                    })
+                }
+                
+            }else{
+                validationError(next, {
+                    email: "Incorrect old Password"
+                })
+            }
+        }catch(error){
+            errorMsg(next, error)
+        }
+    }
 }
 
 module.exports =  new profileCtrl

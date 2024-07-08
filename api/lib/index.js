@@ -70,4 +70,26 @@ const auth = async (req, res, next) => {
     }
 }
 
-module.exports = { validationError, errorMsg, auth}
+const cmsAccess = (req, res, next) => {
+    if(req.user.role != "customer"){
+        next()
+    }else{
+        next({
+            message: 'Access denied',
+            status: 403
+        })
+    }
+}
+
+const adminOnly = (req, res, next) => {
+    if(req.user.role == "Admin"){
+        next()
+    }else{
+        next({
+            message: 'Access denied',
+            status: 403
+        })
+    }
+}
+
+module.exports = { validationError, errorMsg, auth, cmsAccess, adminOnly}
