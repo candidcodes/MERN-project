@@ -7,7 +7,7 @@ router.route('/')
     .get(Cms.StaffsCtrl.index)
     .post(Cms.StaffsCtrl.store)
 
-router.route(':/id')
+router.route('/:id')
     .get(Cms.StaffsCtrl.show)
     .put(Cms.StaffsCtrl.update)
     .patch(Cms.StaffsCtrl.update)
