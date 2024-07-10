@@ -58,7 +58,7 @@ class StaffCtrl {
             const { id } = req.params
             const staff = await User.findById(id)
 
-            if(staff){
+            if(staff.role == 'staff'){
                 await User.findByIdAndUpdate(id, {name, phone, address, status})
                 res.send({
                     message: 'Staff updated'
@@ -83,7 +83,7 @@ class StaffCtrl {
 
 
 
-            if(staff){
+            if(staff.role == 'staff'){
                 await User.findByIdAndDelete(id)
 
                 res.send({
