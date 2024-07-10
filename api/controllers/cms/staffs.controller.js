@@ -38,7 +38,7 @@ class StaffCtrl {
             const { id } = req.params
             const staff = await User.findById(id)
 
-            if(staff){
+            if(staff.role == 'staff'){
                 res.send(staff)
             }else{
                 next({
