@@ -32,7 +32,7 @@ class StaffCtrl {
         }
     }
 
-    //to show the detail about staff
+    //to show the detail about staff using id
     show = async(req, res, next) => {
         try{
             const { id } = req.params
