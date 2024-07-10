@@ -1,6 +1,5 @@
-const { User, Category } = require("@/models")
-const {errorMsg, validationError} = require("@/lib")
-const bcrypt = require('bcryptjs')
+const { Category } = require("@/models")
+const {errorMsg} = require("@/lib")
 
 class categoryCtrl{
     //show the category
