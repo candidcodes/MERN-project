@@ -1,4 +1,3 @@
-const {Schema} = require ('mongoose')
 const jwt = require('jsonwebtoken')
 const { User } = require('@/models')
 const multer = require('multer')
