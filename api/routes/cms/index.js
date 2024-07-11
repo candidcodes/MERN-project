@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const staffsRoutes = require('./staffs.routes.js');
-const customerRoutes = require('./customer.routes.js')
-const categoryRoutes = require('./category.routes.js')
+const customerRoutes = require('./customers.routes.js')
+const categoryRoutes = require('./categories.routes.js')
 const brandRoutes = require('./brands.routes.js')
 const productsRoutes = require('./products.routes.js')
 const { adminOnly } = require('@/lib/index.js');

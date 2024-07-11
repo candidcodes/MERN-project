@@ -2,7 +2,7 @@ const { User } = require("@/models")
 const {errorMsg, validationError} = require("@/lib")
 const bcrypt = require('bcryptjs')
 
-class customerCtrl {
+class CustomersCtrl {
     //shows all the customer
     index = async(req, res, next) => {
         const customer = await User.find({role: 'customer'})
@@ -96,5 +96,5 @@ class customerCtrl {
     
 }
 
-module.exports = new customerCtrl;
+module.exports = new CustomersCtrl;
 
