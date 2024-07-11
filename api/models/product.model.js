@@ -11,7 +11,8 @@ const Product = model('Product', new  Schema({
     images: [stringRequired],
     categoryId: {...foreignConfig, ref: 'Category' },
     brandId: {...foreignConfig, ref: 'Brand' },
-    status: booleanTrue
+    status: booleanTrue,
+    featured: {type: Boolean, default: false}
 
 }, extraConfig))
 

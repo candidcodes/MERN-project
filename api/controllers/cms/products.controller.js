@@ -1,18 +1,19 @@
 const { errorMsg } = require("@/lib");
+const { Product } = require("@/models");
 const Brand = require("@/models/brand.model")
 
 
-class BrandCtrl{
+class ProductsCtrl{
     index = async (req, res, next) => {
-        const brand = await Brand.find();
-        res.send(brand)
+        const products = await Product.find();
+        res.send(products)
     }
     store = async (req, res, next) => {
         try{
-            const {name, status} = req.body
+            const {name, status, description, summary, price, discountedPrice, categoryId, brandId, featured} = req.body
 
-            await Brand.create({
-                name, status
+            await Product.create({
+                name, status, description, summary, price, discountedPrice, categoryId, brandId, featured
             })
 
             res.send({
@@ -41,13 +42,13 @@ class BrandCtrl{
     }
     update = async(req, res, next) => {
         try{
-            const {name, status} = req.body
+            const {name, status, description, summary, price, discountedPrice, categoryId, brandId, featured} = req.body
             const { id } = req.params
             const brand = await Brand.findById(id)
 
 
             if(brand){
-                await Brand.findByIdAndUpdate(id, {name, status})
+                await Brand.findByIdAndUpdate(id, {name, status, description, summary, price, discountedPrice, categoryId, brandId, featured})
                 res.send({
                     message: 'brand updated'
                 })
@@ -84,4 +85,4 @@ class BrandCtrl{
     }
 }
 
-module.exports = new BrandCtrl
+module.exports = new ProductsCtrl

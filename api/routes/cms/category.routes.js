@@ -4,13 +4,13 @@ const { Cms } = require('@/controllers')
 const router = Router()
 
 router.route('/')
-    .get(Cms.categoryCtrl.index)
-    .post(Cms.categoryCtrl.store)
+    .get(Cms.CategoriesCtrl.index)
+    .post(Cms.CategoriesCtrl.store)
 
 router.route('/:id')
-    .get(Cms.categoryCtrl.show)
-    .put(Cms.categoryCtrl.update)
-    .patch(Cms.categoryCtrl.update)
-    .delete(Cms.categoryCtrl.destroy)
+    .get(Cms.CategoriesCtrl.show)
+    .put(Cms.CategoriesCtrl.update)
+    .patch(Cms.CategoriesCtrl.update)
+    .delete(Cms.CategoriesCtrl.destroy)
 
 module.exports =  router;

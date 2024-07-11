@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const { Auth } = require('../controllers')
 
+
 const router = Router()
 
 router.get('/detail', Auth.profileCtrl.detail)

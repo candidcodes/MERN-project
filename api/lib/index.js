@@ -1,7 +1,7 @@
 const {Schema} = require ('mongoose')
 const jwt = require('jsonwebtoken')
 const { User } = require('@/models')
-
+const multer = require('multer')
 
 
 const validationError = (next, errors) => {
@@ -90,4 +90,25 @@ const adminOnly = (req, res, next) => {
     }
 }
 
-module.exports = { validationError, errorMsg, auth, cmsAccess, adminOnly}
+const upload = () => multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, "uploads/")
+        },
+        filename: (req, file, cb) => {
+            const ext = image.originalname.split('.').pop()
+            const filename = "img".Date.now() + '-' + Math.round(Math.random() * 1E9)+".ext"
+
+            cb(null, filename)
+        }
+    }),
+    fileFilter: (req, file, cb) => {
+        if(file.mimetype.startsWith('image/')){
+            cb(null, true)
+        }else{
+            cb(new Error('file type not supported'))
+        }
+    }
+})
+
+module.exports = { validationError, errorMsg, auth, cmsAccess, adminOnly, upload}

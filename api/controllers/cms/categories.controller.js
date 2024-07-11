@@ -1,7 +1,7 @@
 const { Category } = require("@/models")
 const {errorMsg} = require("@/lib")
 
-class categoryCtrl{
+class CategoriesCtrl{
     //show the category
     index = async(req, res, next) => {
         const category = await Category.find()
@@ -98,4 +98,4 @@ class categoryCtrl{
     }
 }
 
-module.exports = new categoryCtrl;
+module.exports = new CategoriesCtrl;

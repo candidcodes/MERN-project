@@ -1,6 +1,7 @@
 const StaffsCtrl = require('./staffs.controller.js')
+const CategoriesCtrl = require('./categories.controller.js')
+const ProductsCtrl = require('./products.controller.js')
 const customerCtrl = require('./customer.controller.js')
-const categoryCtrl = require('./category.controller.js')
-const brandCtrl = require('./brand.controller.js')
+const brandsCtrl = require('./brands.controller.js')
 
-module.exports = { StaffsCtrl, customerCtrl, categoryCtrl, brandCtrl}
+module.exports = { StaffsCtrl, customerCtrl, CategoriesCtrl, brandsCtrl, ProductsCtrl}
