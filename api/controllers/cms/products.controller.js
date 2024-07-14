@@ -1,38 +1,61 @@
 const { errorMsg } = require("@/lib");
 const { Product } = require("@/models");
-const Brand = require("@/models/brand.model")
+const { unlinkSync } = require('node:fs')
 
 
 class ProductsCtrl{
     index = async (req, res, next) => {
-        const products = await Product.find();
+
+        //to display the related brands and 
+        const products = await Product.aggregate()
+            .lookup({
+                from: 'categories',
+                localField: 'categoryId',
+                foreignField: '_id',
+                as: 'category'
+
+            })
+            .lookup({
+                from: 'brands',
+                localField: 'brandId',
+                foreignField: '_id',
+                as: 'brand'
+
+            })
         res.send(products)
     }
+
     store = async (req, res, next) => {
         try{
             const {name, status, description, summary, price, discountedPrice, categoryId, brandId, featured} = req.body
+            let images = []
+
+            for (let file of req.files){
+                images.push(file.filename)
+            }
 
             await Product.create({
-                name, status, description, summary, price, discountedPrice, categoryId, brandId, featured
+                name, status, description, summary, price, discountedPrice: discountedPrice || 0, categoryId, brandId, featured, images
             })
 
             res.send({
-                message: 'brand added'
+                message: 'product added'
             })
         }catch(error){
             errorMsg(next, error)
         }
     }
+
     show = async(req, res, next) => {
         try{
             const { id } = req.params
-            const brand = await Brand.findById(id)
+            const product = await Product.findById(id)
 
-            if(brand){
-                res.send(brand)
+            if(product){
+                res.send(product)
             }else{
                 next({
-                    message: 'brand doesnt exist',
+                    message: 'product doesnt exist',
                     status: 404
                 })
             }
@@ -44,17 +67,27 @@ class ProductsCtrl{
         try{
             const {name, status, description, summary, price, discountedPrice, categoryId, brandId, featured} = req.body
             const { id } = req.params
-            const brand = await Brand.findById(id)
+            const product = await Product.findById(id)
 
+            
 
-            if(brand){
-                await Brand.findByIdAndUpdate(id, {name, status, description, summary, price, discountedPrice, categoryId, brandId, featured})
+            if(product){
+
+                let images = product.images;
+
+                if(req.files.length > 0){
+                    for(let file of req.file){
+                        images.push(file.filename)
+                    }
+                }
+                
+                await Product.findByIdAndUpdate(id, {name, status, description, summary, price, discountedPrice: discountedPrice || 0, categoryId, brandId, featured})
                 res.send({
-                    message: 'brand updated'
+                    message: 'product updated'
                 })
             }else{
                 next({
-                    message: 'brand doesnt exist',
+                    message: 'product doesnt exist',
                     status: 404
                 })
             }
@@ -65,16 +98,20 @@ class ProductsCtrl{
     destroy = async (req, res, next) => {
         try{
             const { id } = req.params
-            const brand = await Brand.findById(id)
+            const product = await Product.findById(id)
 
-            if(brand){
-                await Brand.findByIdAndDelete(id)
+            if(product){
+                for(let image of product.images){
+                    unlinkSync(`uploads/${image}`)
+                }
+
+                await Product.findByIdAndDelete(id)
                 res.send({
-                    messange: 'brand info deleted'
+                    messange: 'product info deleted'
                 })
             }else{
                 next({
-                    message: 'brand doesnt exist'
+                    message: 'product doesnt exist'
                 })
             }
 

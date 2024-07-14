@@ -95,8 +95,8 @@ const upload = () => multer({
             cb(null, "uploads/")
         },
         filename: (req, file, cb) => {
-            const ext = image.originalname.split('.').pop()
-            const filename = "img".Date.now() + '-' + Math.round(Math.random() * 1E9)+".ext"
+            const ext = file.originalname.split('.').pop()
+            const filename = "img"+Date.now() + '-' + Math.round(Math.random() * 1E9)+"."+ext
 
             cb(null, filename)
         }
