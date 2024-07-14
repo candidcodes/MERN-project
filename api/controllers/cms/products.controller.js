@@ -14,7 +14,7 @@ class ProductsCtrl{
                 foreignField: '_id',
                 as: 'category'
 
-            })
+            }) 
             .lookup({
                 from: 'brands',
                 localField: 'brandId',
@@ -125,6 +125,33 @@ class ProductsCtrl{
             errorMsg(next, error)
         }
     }
+
+    image = async (req, res, next) => {
+        try{
+            const { id, filename } = req.params
+            const product = await Product.findById(id)
+
+            if(product){
+                unlinkSync(`uploads/${filename}`)
+
+                const images = product.images.filter(file => filename != file)
+
+                await Product.findByIdAndUpdate(id, {images})
+
+                res.send({
+                    messange: 'image deleted deleted'
+                })
+            }else{
+                next({
+                    message: 'product doesnt exist'
+                })
+            }
+
+
+        }catch(error){
+            errorMsg(next, error)
+        }
+    }
 }
 
-module.exports = new ProductsCtrl
+module.exports = new ProductsCtrl 

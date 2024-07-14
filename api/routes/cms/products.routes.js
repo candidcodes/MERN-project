@@ -14,4 +14,6 @@ router.route('/:id')
     .patch(upload().array('images'), Cms.ProductsCtrl.update)
     .delete(Cms.ProductsCtrl.destroy)
 
+router.delete('/:id/image/:filename', Cms.ProductsCtrl.image)
+
 module.exports =  router;
