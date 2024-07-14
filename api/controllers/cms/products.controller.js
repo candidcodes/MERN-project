@@ -22,6 +22,11 @@ class ProductsCtrl{
                 as: 'brand'
 
             })
+        //the brand details and category details comes in array so we use this to convert to object
+        for(let i in products){
+            products[i].category = products[i].category[0]
+            products[i].brand = products[i].brand[0]
+        }
         res.send(products)
     }
 
