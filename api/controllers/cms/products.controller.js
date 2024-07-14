@@ -75,7 +75,7 @@ class ProductsCtrl{
 
                 let images = product.images;
 
-                if(req.files.length > 0){
+                if(req.files.length > 0){  //checking the length of array
                     for(let file of req.file){
                         images.push(file.filename)
                     }
