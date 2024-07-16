@@ -1,5 +1,6 @@
 const { errorMsg } = require("@/lib")
-const {Product} = require('@/models')
+const {Product, Review} = require('@/models')
+const { Types } = require('mongoose')
 
 class ProductsCtrl{
     latest = async(req, res, next) => {
@@ -37,9 +38,45 @@ class ProductsCtrl{
         }
     }
 
-    show = async(req, res, next) => {}
+    show = async(req, res, next) => {
+        try{
+            const { id } = req.params
+            
+            let product = await Product.aggregate()
+                .match({'_id': new Types.ObjectId(id)})
+                .lookup({from: 'brands', localField: 'brandId', foreignField: '_id', as: 'brand'})
+
+            
+
+            if(product.length > 0){
+                product = product[0]
+                product.brand = product.brand[0]
+
+                let reviews = await Review.aggregate()
+                    .match({'productId': product._id})
+                    .lookup({from: 'users', localField: 'userId', foreignField: '_id', as: 'user'})
+
+                for (let i in reviews){
+                    reviews[i].user = reviews[i].user[0]
+                }
+
+                product.reviews = reviews
+
+                res.send(product)
+            }else{
+                next({
+                    message: 'Product not found',
+                    status: 404
+                })
+            }
+        }catch(error){
+            errorMsg(next, error)
+        }
+    }
     
-    search = async(req, res, next) => {}
+    search = async(req, res, next) => {
+        
+    }
 
     byCategoryId = async(req, res, next) => {}
 
