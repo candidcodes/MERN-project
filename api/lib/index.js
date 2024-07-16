@@ -89,6 +89,17 @@ const adminOnly = (req, res, next) => {
     }
 }
 
+const customerOnly = (req, res, next) => {
+    if(req.user.role == "Customer"){
+        next()
+    }else{
+        next({
+            message: 'Access denied',
+            status: 403
+        })
+    }
+}
+
 const upload = () => multer({
     storage: multer.diskStorage({
         destination: (req, file, cb) => {
@@ -110,4 +121,4 @@ const upload = () => multer({
     }
 })
 
-module.exports = { validationError, errorMsg, auth, cmsAccess, adminOnly, upload}
+module.exports = { validationError, errorMsg, auth, cmsAccess, adminOnly, upload, customerOnly}

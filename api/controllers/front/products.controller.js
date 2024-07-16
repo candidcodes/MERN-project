@@ -75,16 +75,83 @@ class ProductsCtrl{
     }
     
     search = async(req, res, next) => {
-        
+        try{
+            const { term } = req.query
+            const products = await Product.find({
+                status: true,
+                name: {$regex: term, $options: 'i'}
+            })
+
+            res.send(products)
+
+        }catch(error){
+            errorMsg(next, error)
+        }
     }
 
-    byCategoryId = async(req, res, next) => {}
+    byCategoryId = async(req, res, next) => {
+        try{
+            const { id } = req.params
+            const products = await Product.find({
+                status: true,
+                categoryId: id
+            })
 
-    byBrandId = async(req, res, next) => {}
+            res.send(products)
+
+        }catch(error){
+            errorMsg(next, error)
+        }
+    }
+
+    byBrandId = async(req, res, next) => {
+        try{
+            const { id } = req.params
+            const products = await Product.find({
+                status: true,
+                brandId: id
+            })
+
+            res.send(products)
+
+        }catch(error){
+            errorMsg(next, error)
+        }
+    }
     
-    similar = async(req, res, next) => {}
+    similar = async(req, res, next) => {
+        try{
+            const { id } = req.params
+            const product = await Product.findById(id)
+
+            const products = await Product.find({
+                categoryId: product.categoryId,
+                _id: {$ne: product._id}, 
+                status: true
+            }
+            )
+
+            res.send(products)
+
+        }catch(error){
+            errorMsg(next, error)
+        }
+    }
     
-    review = async(req, res, next) => {}
+    review = async(req, res, next) => {
+        try{
+            const { id } = req.params
+            const { comment, rating } = req.body
+
+            await Review.create({comment, rating, productId: id, userId: req.user._id})
+
+            res.send({
+                message: 'thank you for your review'
+            })
+        }catch(error){
+            errorMsg(next, error)
+        }
+    }
 
 }
 
