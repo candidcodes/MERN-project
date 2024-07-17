@@ -15,6 +15,7 @@ router.use('/cms', auth, cmsAccess, cmsRoutes)
 
 router.use( frontRoutes)
 
+
 router.use((req, res, next) => {
     next({
         message: 'Resource not found',

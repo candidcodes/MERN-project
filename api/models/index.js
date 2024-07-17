@@ -6,4 +6,4 @@ const Product = require('./product.model.js')
 const Review = require('./review.model.js')
 const User = require('./user.model.js')
 
-module.exports = { Category, Detail, Order, Product, Review, User }
+module.exports = { Category, Detail, Order, Product, Review, User, Brand }

@@ -1,5 +1,5 @@
 const { errorMsg, validationError } = require("@/lib")
-const { User } = require("@/models")
+const { User, Review, Order, Detail } = require("@/models")
 const bcrypt = require('bcryptjs')
 
 
@@ -47,6 +47,49 @@ class profileCtrl {
                     email: "Incorrect old Password"
                 })
             }
+        }catch(error){
+            errorMsg(next, error)
+        }
+    }
+    reviews = async(req, res, next) => {
+        try{
+            let reviews = await Review.aggregate()
+                .match({
+                    userId: req.user._id,
+
+                }) 
+                .lookup({
+                    from: 'products',
+                    localField: 'productId',
+                    foreignField: '_id',
+                    as: 'product'
+                })
+                for(let i in reviews){
+                    reviews[i].product = reviews[i].product[0]
+                }
+        }catch(error){
+            errorMsg(next, error)
+        }
+    }
+
+    orders = async(req, res, next) => {
+        try{
+            let orders = await Order.find({userId: req.user._id})
+
+            for(let i in orders){
+                let details = await Detail.aggregate()
+                    .match({orderId: item._id})
+                    .lookup({
+                        from: 'products',
+                        localField: 'productId',
+                        foreignField: '_id',
+                        as: 'product'
+                    })
+                    for(let j in details){
+                        details[j].product = details[j].product[0]
+                    }
+            }
+           
         }catch(error){
             errorMsg(next, error)
         }

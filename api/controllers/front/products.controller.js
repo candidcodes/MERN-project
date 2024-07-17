@@ -15,7 +15,7 @@ class ProductsCtrl{
 
     featured = async(req, res, next) => {
         try{
-            const products = await Product.find({status: true, features: true})
+            const products = await Product.find({status: true, featured: true})
 
             res.send(products)
         }catch(error){

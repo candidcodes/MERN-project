@@ -23,7 +23,7 @@ const errorMsg = (next, error) => {
                     }
                 }
                 validationError(next, list)
-            } else if('code' in error && error.code == 11000){
+            }else if('code' in error && error.code == 11000){
                 validationError(next, {
                     email: 'given email is already in use'
                 })
@@ -90,7 +90,7 @@ const adminOnly = (req, res, next) => {
 }
 
 const customerOnly = (req, res, next) => {
-    if(req.user.role == "Customer"){
+    if(req.user.role == "customer"){
         next()
     }else{
         next({
