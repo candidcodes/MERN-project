@@ -54,10 +54,7 @@ class profileCtrl {
     reviews = async(req, res, next) => {
         try{
             let reviews = await Review.aggregate()
-                .match({
-                    userId: req.user._id,
-
-                }) 
+                .match({userId: req.user._id}) 
                 .lookup({
                     from: 'products',
                     localField: 'productId',
@@ -67,6 +64,8 @@ class profileCtrl {
                 for(let i in reviews){
                     reviews[i].product = reviews[i].product[0]
                 }
+
+                res.send(reviews)
         }catch(error){
             errorMsg(next, error)
         }
@@ -78,7 +77,7 @@ class profileCtrl {
 
             for(let i in orders){
                 let details = await Detail.aggregate()
-                    .match({orderId: item._id})
+                    .match({orderId: orders[i]._id})
                     .lookup({
                         from: 'products',
                         localField: 'productId',
@@ -88,8 +87,14 @@ class profileCtrl {
                     for(let j in details){
                         details[j].product = details[j].product[0]
                     }
+
+                    orders[i] = {
+                        ...orders[i].toJSON(),
+                        details
+                    }
             }
-           
+            res.send(orders)  
+
         }catch(error){
             errorMsg(next, error)
         }

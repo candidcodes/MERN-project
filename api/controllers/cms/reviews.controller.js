@@ -5,24 +5,42 @@ const Review = require("@/models/review.model")
 class ReviewsCtrl{
     index = async (req, res, next) => {
         try{
+            let reviews = await Review.aggregate()
+            .lookup({
+                from: 'products',
+                localField: 'productId',
+                foreignField: '_id',
+                as: 'product'
+            })
+            .lookup({
+                from: 'users',
+                localField: 'userId',
+                foreignField: '_id',
+                as: 'user'
+            })
+            for(let i in reviews){
+                reviews[i].product = reviews[i].product[0]
+                reviews[i].user = reviews[i].user[0]
+            }
 
+            res.send(reviews)
         }catch(error){
-            errorMsg(next, )
+            errorMsg(next, error)
         }
     }
     destroy = async (req, res, next) => {
         try{
             const { id } = req.params
-            const brand = await Brand.findById(id)
+            const review = await Review.findById(id)
 
-            if(brand){
-                await Brand.findByIdAndDelete(id)
+            if(review){
+                await Review.findByIdAndDelete(id)
                 res.send({
-                    messange: 'brand info deleted'
+                    messange: 'review deleted'
                 })
             }else{
                 next({
-                    message: 'brand doesnt exist'
+                    message: 'review doesnt exist'
                 })
             }
 
@@ -33,4 +51,4 @@ class ReviewsCtrl{
     }
 }
 
-module.exports = new BrandsCtrl
+module.exports = new ReviewsCtrl
