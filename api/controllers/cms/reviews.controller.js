@@ -36,7 +36,7 @@ class ReviewsCtrl{
             if(review){
                 await Review.findByIdAndDelete(id)
                 res.send({
-                    messange: 'review deleted'
+                    message: 'review deleted'
                 })
             }else{
                 next({
