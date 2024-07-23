@@ -5,8 +5,9 @@ const { extraConfig, foreignConfig, numberRequired } = require("@/lib/constants"
 
 const Detail = model('Detail', new  Schema({
     productId: {...foreignConfig, ref: 'Product'},
-    orderId: {...foreignConfig, ref: 'order'},
+    orderId: {...foreignConfig, ref: 'Order'},
     price: numberRequired,
+    qty: numberRequired,
     total: numberRequired,
 
 }, extraConfig))

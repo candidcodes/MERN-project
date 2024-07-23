@@ -12,14 +12,14 @@ class OrdersCtrl{
                 foreignField: '_id',
                 as: 'user'
             })
-
+            
             for(let i in orders){
                 orders[i].user = orders[i].user[0]
 
                 let details = await Detail.aggregate()
                     .match({orderId: orders[i]._id})
                     .lookup({
-                        from: 'Products',
+                        from: 'products',
                         localField: 'productId',
                         foreignField: '_id',
                         as: 'product'
