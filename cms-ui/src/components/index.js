@@ -1,3 +1,4 @@
 import { Layout } from "./Layout";
+import { InputField } from "./InputField";
 
-export { Layout }
+export { Layout, InputField }
