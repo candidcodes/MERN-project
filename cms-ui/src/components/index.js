@@ -1,4 +1,5 @@
 import { Layout } from "./Layout";
 import { InputField } from "./InputField";
+import { SubmitBtn } from "./SubmitBtn";
 
-export { Layout, InputField }
+export { Layout, InputField, SubmitBtn }

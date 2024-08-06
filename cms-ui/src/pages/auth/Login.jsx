@@ -1,4 +1,6 @@
-import { InputField } from "@/components"
+import { InputField, SubmitBtn } from "@/components"
+import http from "@/http"
+import axios from "axios"
 import { useFormik } from "formik"
 import { useState } from "react"
 import { Container, Row, Col , Form, Button} from "react-bootstrap"
@@ -13,11 +15,14 @@ export const Login = () => {
             password: ''
         },
         validationSchema: Yup.object({
-            email: Yup.string().required('Please enter your email').email(),
-            password: Yup.string().required()
+            email: Yup.string().required(`Please enter your email`).email(),
+            password: Yup.string().required(`Please enter your password`)
         }), 
-        onSubmit: (values) => {
-
+        onSubmit: (values, { setSubmitting }) => {
+          http.post('/auth/login', values)
+            .then(() => {})
+            .catch(() => {})
+            .finally(() => setSubmitting(false))
         }
     })
 
@@ -41,8 +46,8 @@ export const Login = () => {
                            </Form.Check>
 
                            <div className="mb-3 d-grid">
-                            <Button type="submit" variant="dark">
-                                <i className="fa-solid fa-arrow-right-to-bracket me-3" />Login</Button>
+                            <SubmitBtn icon="fa-arrow-right-to-bracket" loading={formik.isSubmitting} label="Log In" />
+                            
                            </div>
                            
 
