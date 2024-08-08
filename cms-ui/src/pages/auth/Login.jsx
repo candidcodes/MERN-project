@@ -1,5 +1,6 @@
 import { InputField, SubmitBtn } from "@/components"
 import http from "@/http"
+import { handleValidationError } from "@/lib"
 import axios from "axios"
 import { useFormik } from "formik"
 import { useState } from "react"
@@ -15,13 +16,17 @@ export const Login = () => {
             password: ''
         },
         validationSchema: Yup.object({
-            email: Yup.string().required(`Please enter your email`).email(),
-            password: Yup.string().required(`Please enter your password`)
-        }), 
+           email: Yup.string().required(`Please enter your email`).email(),
+            password: Yup.string().required()
+        }),  
         onSubmit: (values, { setSubmitting }) => {
           http.post('/auth/login', values)
             .then(() => {})
-            .catch(() => {})
+
+            .catch( ({ response }) => {
+                handleValidationError(formik, response.data)
+            })
+
             .finally(() => setSubmitting(false))
         }
     })

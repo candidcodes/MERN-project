@@ -28,7 +28,7 @@ class LoginCtrl{
 
                 }else{
                     validationError(next, {
-                        email: "Incorrect Password"
+                        password: "Incorrect Password"
                     })
                 }
 
