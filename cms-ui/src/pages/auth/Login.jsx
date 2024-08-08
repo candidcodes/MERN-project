@@ -1,7 +1,6 @@
 import { InputField, SubmitBtn } from "@/components"
 import http from "@/http"
 import { handleValidationError } from "@/lib"
-import axios from "axios"
 import { useFormik } from "formik"
 import { useState } from "react"
 import { Container, Row, Col , Form, Button} from "react-bootstrap"
