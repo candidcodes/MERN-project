@@ -1,13 +1,20 @@
 import { InputField, SubmitBtn } from "@/components"
 import http from "@/http"
-import { handleValidationError } from "@/lib"
+import { handleValidationError, inStorage } from "@/lib"
+import { setUser } from "@/store"
 import { useFormik } from "formik"
 import { useState } from "react"
 import { Container, Row, Col , Form, Button} from "react-bootstrap"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import * as Yup from "yup"
 
 export const Login = () => {
     const [remember, setRemember] = useState(false)
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
 
     const formik = useFormik({
         initialValues : {
@@ -20,7 +27,15 @@ export const Login = () => {
         }),  
         onSubmit: (values, { setSubmitting }) => {
           http.post('/auth/login', values)
-            .then(() => {})
+            .then(({ data }) => {
+                inStorage('430cmstoken', data.token, remember)
+
+                return http.get('/profile/detail')
+            })
+            .then(({ data }) => {
+                dispatch(setUser(data))
+                navigate('/')
+            })
 
             .catch( ({ response }) => {
                 handleValidationError(formik, response.data)

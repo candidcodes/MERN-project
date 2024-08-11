@@ -8,8 +8,10 @@ export const AppRouter = () => {
         <Routes>
             <Route path="/" element={<Layout />}> 
                 <Route index element={ <PrivateRoute element={<Pages.Dashboasrd.Home />}/>} />
+                <Route path="/profile/edit" element={<PrivateRoute element={<Pages.Profile.Edit />}/>} />
 
                 <Route path="login" element={<Pages.Auth.Login />} />
+
             </Route>
         </Routes>
     </BrowserRouter>

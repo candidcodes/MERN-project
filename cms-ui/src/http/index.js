@@ -1,3 +1,4 @@
+import { fromStorage } from "@/lib"
 import axios from "axios"
 import { toast } from "react-toastify"
 
@@ -13,6 +14,8 @@ const http = axios.create({
 http.interceptors.response.use(response => {
     if('message' in response.data)
         toast.success(response.data.message)
+
+    return response
 }, error => {
     if('message' in error.response.data){
         toast.error(error.response.data.message)
@@ -22,6 +25,15 @@ http.interceptors.response.use(response => {
 
 
 })
+
+http.interceptors.request.use(config => {
+    const token = fromStorage('430cmstoken')
+    if(token){
+        config.headers['Authorization'] = `Bearer ${token}`
+    }
+
+    return config
+}, error => Promise.reject(error))
 
 
 export default http
