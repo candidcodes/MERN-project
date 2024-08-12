@@ -1,3 +1,8 @@
+import dayjs from 'dayjs'
+import LocalizedFormat from 'dayjs/plugin/localizedFormat'
+
+dayjs.extend(LocalizedFormat)
+
 export const handleValidationError = (formik, data) => {
     if('errors' in data){
         for(let k in data.errors){
@@ -19,3 +24,5 @@ export const removeStorage = key => {
     localStorage.removeItem(key)
     sessionStorage.removeItem(key)
 }
+
+export const dtFormat = (dt, format = 'lll') => dayjs(dt).format(format)

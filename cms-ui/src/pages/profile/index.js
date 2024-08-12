@@ -1,3 +1,3 @@
 import { Edit } from "./Edit";
-
-export { Edit }
+import { Password } from "./Password";
+export { Edit, Password }

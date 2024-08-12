@@ -1,6 +1,6 @@
 import { removeStorage } from "@/lib"
 import { clearUser } from "@/store"
-import { Container, Navbar, Nav, NavDropdown, Row, Col, Dropdown, Button } from "react-bootstrap"
+import { Container, Navbar, Nav, NavDropdown, Dropdown, Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, NavLink } from "react-router-dom"
 
@@ -17,12 +17,13 @@ export const MenuBar = () => {
 
     return user && <Navbar expand="lg" bg="dark" data-bs-theme="dark">
     <Container>
-        <Link className="navbar-brand">Mern 430</Link>
+        <Link className="navbar-brand" to="/">Mern 430</Link>
         <Navbar.Toggle />
         <Navbar.Collapse>
             <Nav className= "me-auto">
                 <Nav.Item>
-                    <NavLink className="nav-link" to="">Link</NavLink>
+                    <NavLink className="nav-link" to="/staffs">
+                        <i className="fa-solid fa-users me-2"></i>staffs</NavLink>
                 </Nav.Item>
             </Nav>
 
@@ -34,8 +35,8 @@ export const MenuBar = () => {
                         <Link className="dropdown-item" to='/profile/edit'>
                            <i className="fa-solid fa-user-edit me-2" ></i> Edit Profile
                         </Link>
-                        <Link className="dropdown-item" to='/profile/edit'>
-                           <i className="fa-solid fa-asterisk me-2" ></i> Change Password
+                        <Link className="dropdown-item" to='/profile/password'>
+                           <i className="fa-solid fa-asterisk me-2"></i> Change Password
                         </Link>
                         <Dropdown.Divider />
                         <Button variant="link" className="dropdown-item" onClick={handleLogout}>
