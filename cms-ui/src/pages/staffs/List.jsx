@@ -4,6 +4,7 @@ import http from '@/http'
 import { Loading } from "@/components"
 import { Link } from "react-router-dom"
 import { dtFormat } from "@/lib"
+import { confirmAlert } from "react-confirm-alert"
 
 export const List = () => {
     const [staffs, setStaffs] = useState([])
@@ -17,6 +18,30 @@ export const List = () => {
             .catch(() => {})
             .finally(() => setLoading(false))
     }, [])
+
+    const handleDelete = (id) => {
+        confirmAlert({
+            title: 'Confirm',
+            message: 'Are you sure you want to delete staff record?',
+            buttons: [
+            {
+                label: 'Yes',
+                className: 'text-bg-danger',
+                onClick: () => {
+                    setLoading(true)
+                    http.delete(`cms/staffs/${id}`)
+                        .then(() => http.get('cms/staffs'))
+                        .then(({ data }) => setStaffs(data))
+                        .catch(() => {})
+                        .finally(() => setLoading(false))
+                }
+            },
+            {
+                label: 'No'
+            }
+        ]
+        })
+    }
 
     return <Container className="bg-white py-3 my-3 rounded-2 shadow-sm">
         {loading ? <Loading /> : <Row>
@@ -53,10 +78,10 @@ export const List = () => {
                             <td>{dtFormat(staff.createdAt)}</td>
                             <td>{dtFormat(staff.updatedAt)}</td>
                             <td>
-                                <Link to='' className="btn btn-dark btn-sm me-2">
+                                <Link to={`/staffs/${staff._id}`} className="btn btn-dark btn-sm me-2">
                                     <i className="fa-solid fa-edit me-2"></i>Edit
                                 </Link>
-                                <Button size="sm" variant="danger">
+                                <Button size="sm" variant="danger" onClick={()=> handleDelete(staff._id)}>
                                     <i className="fa-solid fa-times me-2"></i>Delete
                                 </Button>
                                 
