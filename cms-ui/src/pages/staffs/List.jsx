@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Button, Col, Container, Row, Table } from "react-bootstrap"
 import http from '@/http'
-import { Loading } from "@/components"
+import { DataTable, Loading } from "@/components"
 import { Link } from "react-router-dom"
 import { dtFormat } from "@/lib"
 import { confirmAlert } from "react-confirm-alert"
@@ -54,44 +54,26 @@ export const List = () => {
                 </Link>
             </Col>
             <Col xs='12'>
-                {staffs.length ? 
-                <Table bordered striped hover size="sm">
-                    <thead className="table-dark" >
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Status</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {staffs.map((staff, i) => <tr key = {i}>
-                            <td>{staff.name}</td>
-                            <td>{staff.email}</td>
-                            <td>{staff.address}</td>
-                            <td>{staff.phone}</td>
-                            <td>{staff.status ? 'active' : 'inactive'}</td>
-                            <td>{dtFormat(staff.createdAt)}</td>
-                            <td>{dtFormat(staff.updatedAt)}</td>
-                            <td>
-                                <Link to={`/staffs/${staff._id}`} className="btn btn-dark btn-sm me-2">
-                                    <i className="fa-solid fa-edit me-2"></i>Edit
-                                </Link>
-                                <Button size="sm" variant="danger" onClick={()=> handleDelete(staff._id)}>
-                                    <i className="fa-solid fa-times me-2"></i>Delete
-                                </Button>
-                                
-                            </td>
-                            
+                <DataTable searchables={['Name', 'Email']} data={staffs.map(staff => {
+                    return {
+                        'Name': staff.name,
+                        'Email': staff.email,
+                        'Phone': staff.phone,
+                        'Address': staff.address,
+                        'Status': staff.status ? 'Active' : 'Inactive',
+                        'Created At': dtFormat(staff.createdAt),
+                        'Updated At': dtFormat(staff.updatedAt),
+                        'Actions': <>
+                            <Link to={`/staffs/${staff._id}`} className="btn bth-dark btn-sm me-2">
+                                <i className="fa-solid fa-edit me-2"></i>Edit
+                            </Link>
+                            <Button variant="danger" size="sm" onClick={() => handleDelete(staff._id)}>
+                                <i className="fa-solid fa-times me-2"></i>Delete
+                            </Button>
+                        </>
 
-                        </tr>)}
-                    </tbody>
-                </Table> : 
-                <h5 className="text-muted">No data</h5>}
+                    }
+                })} />
             </Col>
         </Row>
 
