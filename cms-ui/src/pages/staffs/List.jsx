@@ -54,7 +54,7 @@ export const List = () => {
                 </Link>
             </Col>
             <Col xs='12'>
-                <DataTable searchables={['Name', 'Email']} data={staffs.map(staff => {
+                <DataTable searchables={['Name', 'Email', 'Phone', 'Address']} sortables={['Name', 'Email', 'Phone', 'Address']} data={staffs.map(staff => {
                     return {
                         'Name': staff.name,
                         'Email': staff.email,
@@ -64,7 +64,7 @@ export const List = () => {
                         'Created At': dtFormat(staff.createdAt),
                         'Updated At': dtFormat(staff.updatedAt),
                         'Actions': <>
-                            <Link to={`/staffs/${staff._id}`} className="btn bth-dark btn-sm me-2">
+                            <Link to={`/staffs/${staff._id}`} className="btn btn-dark btn-sm me-2">
                                 <i className="fa-solid fa-edit me-2"></i>Edit
                             </Link>
                             <Button variant="danger" size="sm" onClick={() => handleDelete(staff._id)}>
