@@ -17,6 +17,18 @@ export const AppRouter = () => {
                     <Route path="create" element={<Pages.Staffs.Create />} />
                 </Route>
 
+                <Route path="customers" element={<PrivateRoute element={<Outlet />} />}>
+                    <Route index element={<Pages.Customers.List />} />
+                    <Route path=":id" element={<Pages.Customers.Edit />} />
+                    <Route path="create" element={<Pages.Customers.Create />} />
+                </Route>
+
+                <Route path="categories" element={<PrivateRoute element={<Outlet />} />}>
+                    <Route index element={<Pages.Categories.List />} />
+                    <Route path=":id" element={<Pages.Categories.Edit />} />
+                    <Route path="create" element={<Pages.Categories.Create />} />
+                </Route>
+
             </Route>
             <Route path="login" element={<Pages.Auth.Login />} />
         </Routes>
