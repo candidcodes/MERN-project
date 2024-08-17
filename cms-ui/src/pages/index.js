@@ -4,5 +4,6 @@ import * as Profile from './profile'
 import * as Staffs from './staffs'
 import * as Customers from './customers'
 import * as Categories from './categories'
+import * as Brands from './brands'
 
-export { Dashboasrd, Auth, Profile, Staffs, Customers, Categories }
+export { Dashboasrd, Auth, Profile, Staffs, Customers, Categories, Brands }

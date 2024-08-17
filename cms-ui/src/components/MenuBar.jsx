@@ -21,18 +21,24 @@ export const MenuBar = () => {
         <Navbar.Toggle />
         <Navbar.Collapse>
             <Nav className= "me-auto">
-                <Nav.Item>
+                {user.role == 'Admin' && <Nav.Item>
                     <NavLink className="nav-link" to="/staffs">
                         <i className="fa-solid fa-clipboard-user me-2"></i>Staffs</NavLink>
-                </Nav.Item>
-                <Nav.Item>
-                    <NavLink className="nav-link" to="/customers">
-                        <i className="fa-solid fa-users me-2"></i>Customers</NavLink>
-                </Nav.Item>
-                <Nav.Item>
-                    <NavLink className="nav-link" to="/categories">
-                        <i className="fa-solid fa-list me-2"></i>Categories</NavLink>
-                </Nav.Item>
+                </Nav.Item>}
+                {(user.role === 'Admin' || user.role === 'Staff')  && <>
+                    <Nav.Item>
+                        <NavLink className="nav-link" to="/customers">
+                            <i className="fa-solid fa-users me-2"></i>Customers</NavLink>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <NavLink className="nav-link" to="/categories">
+                            <i className="fa-solid fa-list me-2"></i>Categories</NavLink>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <NavLink className="nav-link" to="/brands">
+                            <i className="fa-solid fa-star me-2"></i>Brands</NavLink>
+                    </Nav.Item>
+                </> }
             </Nav>
 
             <Nav className="mb-lg-0 mb-2">

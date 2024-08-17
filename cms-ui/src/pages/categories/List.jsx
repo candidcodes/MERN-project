@@ -46,7 +46,7 @@ export const List = () => {
     return <Container className="bg-white py-3 my-3 rounded-2 shadow-sm">
         {loading ? <Loading /> : <Row>
             <Col>
-                <h1>Staff List</h1>
+                <h1>Category List</h1>
             </Col>
             <Col xs='auto'>
                 <Link to='/categories/create' className="btn btn-dark" >
