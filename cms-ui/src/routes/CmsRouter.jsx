@@ -6,7 +6,7 @@ export const CmsRoute = ({ element }) => {
     const user = useSelector(state => state.user.value)
     const navigate = useNavigate()
     useEffect(() => {
-        if(user.role == 'customer'){
+        if(user?.role == 'customer'){
             navigate('/')
         }
     }, [user])
