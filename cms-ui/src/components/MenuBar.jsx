@@ -25,7 +25,7 @@ export const MenuBar = () => {
                     <NavLink className="nav-link" to="/staffs">
                         <i className="fa-solid fa-clipboard-user me-2"></i>Staffs</NavLink>
                 </Nav.Item>}
-                {(user.role === 'Admin' || user.role === 'Staff')  && <>
+                {user.role != 'customer'  && <>
                     <Nav.Item>
                         <NavLink className="nav-link" to="/customers">
                             <i className="fa-solid fa-users me-2"></i>Customers</NavLink>
@@ -37,6 +37,10 @@ export const MenuBar = () => {
                     <Nav.Item>
                         <NavLink className="nav-link" to="/brands">
                             <i className="fa-solid fa-star me-2"></i>Brands</NavLink>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <NavLink className="nav-link" to="/products">
+                            <i className="fa-solid fa-gifts me-2"></i>Products</NavLink>
                     </Nav.Item>
                 </> }
             </Nav>

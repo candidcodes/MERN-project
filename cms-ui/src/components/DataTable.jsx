@@ -141,7 +141,7 @@ export const DataTable = ({ data = [], searchables = [], sortables = []}) => {
                     </Pagination>}
 
             </> :
-                <h4>No Staffs</h4>}
+                <h4>No Data</h4>}
         </Col>
     </Row>
 }

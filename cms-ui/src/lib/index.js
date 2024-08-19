@@ -26,3 +26,5 @@ export const removeStorage = key => {
 }
 
 export const dtFormat = (dt, format = 'lll') => dayjs(dt).format(format)
+
+export const imgUrl = filename => `${import.meta.env.VITE_API_URL}/image/${filename}`

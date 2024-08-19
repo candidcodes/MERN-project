@@ -4,3 +4,7 @@
 .sortable:hover{
     opacity: 0.8;
 }
+.img-sm{
+    width: auto;
+    height: 50px;
+}
