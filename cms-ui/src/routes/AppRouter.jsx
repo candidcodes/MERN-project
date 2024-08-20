@@ -40,7 +40,7 @@ export const AppRouter = () => {
                 <Route path="products" element={<PrivateRoute element={<CmsRoute element={<Outlet />}/>} />}>
                     <Route index element={<Pages.Products.List />} />
                     {/* <Route path=":id" element={<Pages.Products.Edit />} /> */}
-                    {/* <Route path="create" element={<Pages.Products.Create />} /> */}
+                    <Route path="create" element={<Pages.Products.Create />} />
                 </Route>
 
             </Route>
