@@ -8,6 +8,11 @@ export const AppRouter = () => {
             <Route path="/" element={<Layout />}> 
                 <Route index element={<Pages.Dashboasrd.Home />}/>
 
+                <Route path="categories/:id" element={<Pages.Dashboasrd.Categories />}/>
+                <Route path="brands/:id" element={<Pages.Dashboasrd.Brands />}/>
+
+                <Route path="search" element={<Pages.Dashboasrd.Search />}/>
+
                 
                 <Route path="login" element={<Pages.Auth.Login />} />
             </Route>
