@@ -8,7 +8,12 @@
     width: auto;
     height: 50px;
 }
-
+.img-large{
+    height: 450px;
+}
+.img-small{
+    height: 100px;
+}
 /* copioed css */
 body {
     background-color: #eaeaea;

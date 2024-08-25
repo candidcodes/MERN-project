@@ -13,6 +13,7 @@ export const AppRouter = () => {
 
                 <Route path="search" element={<Pages.Dashboasrd.Search />}/>
 
+                <Route path="products/:id" element={<Pages.Dashboasrd.Detail />}/>
                 
                 <Route path="login" element={<Pages.Auth.Login />} />
             </Route>

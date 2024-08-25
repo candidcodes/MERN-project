@@ -1,16 +1,17 @@
 import { imgUrl } from "@/lib"
+import { Link } from "react-router-dom"
 
 export const ProductCard = ({ product }) => {
     return <div className="col my-3">
     <div className="col-12 bg-white text-center h-100 product-item">
         <div className="row h-100">
             <div className="col-12 p-0 mb-3">
-                <a href="product.html">
+                <Link to={`/products/${product._id}`}>
                     <img src={imgUrl(product.images[0])} className="img-fluid" />
-                </a>
+                </Link>
             </div>
             <div className="col-12 mb-3">
-                <a href="product.html" className="product-name">{product.name}</a>
+                <Link to={`/products/${product._id}`} className="product-name">{product.name}</Link>
             </div>
             <div className="col-12 mb-3">
                 {product.discountedPrice > 0 ? <>
