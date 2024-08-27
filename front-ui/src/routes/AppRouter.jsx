@@ -16,6 +16,7 @@ export const AppRouter = () => {
                 <Route path="products/:id" element={<Pages.Dashboasrd.Detail />}/>
                 
                 <Route path="login" element={<Pages.Auth.Login />} />
+                <Route path="register" element={<Pages.Auth.Register />} />
             </Route>
         </Routes>
     </BrowserRouter>

@@ -28,7 +28,7 @@ export const Login = () => {
         onSubmit: (values, { setSubmitting }) => {
           http.post('/auth/login', values)
             .then(({ data }) => {
-                inStorage('430cmstoken', data.token, remember)
+                inStorage('430fronttoken', data.token, remember)
 
                 return http.get('/profile/detail')
             })
@@ -46,8 +46,8 @@ export const Login = () => {
     })
 
     return <Container>
-        <Row className="vh-100 justify-content-center align-items-center">
-            <Col lg="4" className="bg-white py-3 my-3 mx-auto rounded-2 shadow-sm">
+        <Row>
+            <Col lg="4" className="bg-white py-3 mx-auto rounded-2 shadow-sm">
                 <Row>
                     <Col className="text-center ">
                         <h1>Login</h1>

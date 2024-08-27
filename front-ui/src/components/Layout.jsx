@@ -1,17 +1,16 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import "react-confirm-alert/src/react-confirm-alert.css";
-import "react-toastify/dist/ReactToastify.min.css";
-import "./Layout.css";
-import { Link, Outlet, useNavigate } from "react-router-dom";
-import { MenuBar } from "./MenuBar";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { fromStorage, removeStorage } from "@/lib";
-import { setUser } from "@/store";
-import { Loading } from ".";
 import http from "@/http";
+import { fromStorage, removeStorage } from "@/lib";
+import { clearUser, setUser } from "@/store";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useEffect, useState } from "react";
 import { Form, Nav, NavDropdown } from "react-bootstrap";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.min.css";
+import { Loading } from ".";
+import "./Layout.css";
 
 export const Layout = () => {
   const user = useSelector((state) => state.user.value);
@@ -61,6 +60,14 @@ export const Layout = () => {
     navigate(`/search?term=${term}`)
   }
  
+
+  const handleLogout = e => {
+    e.preventDefault()
+
+    removeStorage('430fronttoken')
+    dispatch(clearUser())
+  }
+
   return loading ? (
     <Loading />
   ) : (
@@ -86,18 +93,29 @@ export const Layout = () => {
                     </ul>
                   </div>
                   <div className="col-auto">
-                    <ul className="top-nav">
+                    {user ? <ul className="top-nav">
                       <li>
-                        <a href="register.html">
+                        <Link>
+                          <i className="fas fa-user-circle me-2"></i>{user.name}
+                        </Link>
+                      </li>
+                      <li>
+                        <a href="" onClick={handleLogout}>
+                          <i className="fas fa-arrow-right-from-bracket me-2"></i>Logout
+                        </a>
+                      </li>
+                    </ul> : <ul className="top-nav">
+                      <li>
+                        <Link>
                           <i className="fas fa-user-edit me-2"></i>Register
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="login.html">
+                        <Link to="/login">
                           <i className="fas fa-sign-in-alt me-2"></i>Login
-                        </a>
+                        </Link>
                       </li>
-                    </ul>
+                    </ul>}
                   </div>
                 </div>
               </div>
