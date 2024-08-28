@@ -2,13 +2,23 @@ import { Loading, ProductSection } from "@/components"
 import http from "@/http"
 import { imgUrl } from "@/lib"
 import { useEffect, useState } from "react"
-import { Link, useParams, useSearchParams } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { Link, NavLink, useParams } from "react-router-dom"
+import dayjs from "dayjs"
+import RelativeTime from "dayjs/plugin/relativeTime"
+
+dayjs.extend(RelativeTime)
 
 export const Detail = () => {
+    const user = useSelector(state => state.user.value)
+
+
     const [product, setProduct] = useState({})
     const [similars, setSimilars] = useState({})
     const [imgLarge, setImgLarge] = useState('')
     const [loading, setLoading] = useState(true)
+    const [comment, setComment] = useState('')
+    const [rating, setRating] = useState(1)
 
     const params = useParams()
 
@@ -26,6 +36,18 @@ export const Detail = () => {
         .catch(() => {})
         .finally(() => setLoading(false))
     }, [params.id])
+
+    const handleSubmit = event => {
+        event.preventDefault()
+
+        setLoading(true)
+
+        http.post(`products/${params.id}/review`, {comment, rating})
+            .then(() => http.get(`products/${params.id}`))
+            .then(({ data }) => setProduct(data))
+            .catch(() => {})
+            .finally(() => setLoading(false))
+    }
 
     return loading ? <Loading /> : <div className="col-12">
         <main className="row">
@@ -185,28 +207,30 @@ export const Detail = () => {
                                     <h4>Add Review</h4>
                                 </div>
                                 <div className="col-12">
-                                    <form>
+                                    {user ? <form onSubmit={handleSubmit}>
                                         <div className="mb-3">
-                                            <textarea className="form-control" placeholder="Give your review"></textarea>
+                                            <textarea onChange={({ target }) => setComment(target.value)} className="form-control" placeholder="Give your review"></textarea>
                                         </div>
                                         <div className="mb-3">
                                             <div className="d-flex ratings justify-content-end flex-row-reverse">
-                                                <input type="radio" value="5" name="rating" id="rating-5"/><label
+                                                <input type="radio" value="5" name="rating" id="rating-5" checked={rating == 5} onClick={() => setRating(5)}/><label
                                                     for="rating-5"></label>
-                                                <input type="radio" value="4" name="rating" id="rating-4"/><label
+                                                <input type="radio" value="4" name="rating" id="rating-4" checked={rating == 4} onClick={() => setRating(4)}/><label
                                                     for="rating-4"></label>
-                                                <input type="radio" value="3" name="rating" id="rating-3"/><label
+                                                <input type="radio" value="3" name="rating" id="rating-3" checked={rating == 3} onClick={() => setRating(3)}/><label
                                                     for="rating-3"></label>
-                                                <input type="radio" value="2" name="rating" id="rating-2"/><label
+                                                <input type="radio" value="2" name="rating" id="rating-2" checked={rating == 2} onClick={() => setRating(2)}/><label
                                                     for="rating-2"></label>
-                                                <input type="radio" value="1" name="rating" id="rating-1" checked/><label
+                                                <input type="radio" value="1" name="rating" id="rating-1" checked={rating == 1} onClick={() => setRating(1)}/><label
                                                     for="rating-1"></label>
                                             </div>
                                         </div>
                                         <div className="mb-3">
-                                            <button className="btn btn-outline-dark">Add Review</button>
+                                            <button className="btn btn-outline-dark" type="submit">Add Review</button>
                                         </div>
-                                    </form>
+                                    </form> : <div>
+                                        <Link to="/login">Login </Link>to leave a review for this product
+                                    </div> } 
                                 </div>
                             </div>
 
@@ -219,57 +243,26 @@ export const Detail = () => {
                             <div className="row">
                                 <div className="col-12">
 
-                                    <div className="col-12 text-justify py-2 px-3 mb-3 bg-gray">
+                                    {product.reviews.length ? product.reviews.map(review => <div className="col-12 text-justify py-2 px-3 mb-3 bg-gray" key={review._id}>
                                         <div className="row">
                                             <div className="col-12">
-                                                <strong className="me-2">Steve Rogers</strong>
+                                                <strong className="me-2">{review.user.name}</strong>
                                                 <small>
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="far fa-star"></i>
-                                                    <i className="far fa-star"></i>
+                                                    {[1, 2, 3, 4, 5].map(star => <i key={star} className={`fa-${review.rating >= star ? 'solid' : 'regular'} fa-star`}></i>)}
                                                 </small>
                                             </div>
                                             <div className="col-12">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut ullamcorper quam, non congue odio.
-                                                <br/>
-                                                Fusce ligula augue, faucibus sed neque non, auctor rhoncus enim. Sed nec molestie turpis. Nullam accumsan porttitor rutrum. Curabitur eleifend venenatis volutpat.
-                                                <br/>
-                                                Aenean faucibus posuere vehicula.
+                                                {review.comment}
                                             </div>
                                             <div className="col-12">
                                                 <small>
-                                                    <i className="fas fa-clock me-2"></i>5 hours ago
+                                                    <i className="fas fa-clock me-2"></i>{dayjs(review.createdAt).fromNow()}
                                                 </small>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div className="col-12 text-justify py-2 px-3 mb-3 bg-gray">
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <strong className="me-2">Bucky Barns</strong>
-                                                <small>
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="far fa-star"></i>
-                                                    <i className="far fa-star"></i>
-                                                    <i className="far fa-star"></i>
-                                                </small>
-                                            </div>
-                                            <div className="col-12">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut ullamcorper quam, non congue odio.
-                                                <br/>
-                                                Aenean faucibus posuere vehicula.
-                                            </div>
-                                            <div className="col-12">
-                                                <small>
-                                                    <i className="fas fa-clock me-2"></i>5 hours ago
-                                                </small>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </div> ) : <div className="col-12 text-justify py-2 px-3 mb-3 bg-gray">
+                                            No review given
+                                        </div>}
 
                                 </div>
                             </div>
