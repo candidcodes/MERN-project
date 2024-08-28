@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react"
 import { Carousel } from "react-bootstrap"
 
+import { ProductSection } from "@/components"
+import http from "@/http"
 import slider1 from "/slider-1.jpg"
 import slider2 from "/slider-2.jpg"
 import slider3 from "/slider-3.jpg"
-import { imgUrl } from "@/lib"
-import http from "@/http"
-import { ProductSection } from "@/components"
 export const Home = () => {
 
     const [featured, setFeatured] = useState([])
@@ -38,16 +37,17 @@ export const Home = () => {
                     <div className="col-12 px-0">
                         <Carousel>
                             <Carousel.Item>
-                                <img src={slider1} className="w-100"/>
+                                <img src={slider1} className="d-block w-100" style={{ height: '500px', objectFit: 'cover' }} alt="Slide 1"/>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <img src={slider2} className="w-100"/>
+                                <img src={slider2} className="d-block w-100" style={{ height: '500px', objectFit: 'cover' }} alt="Slide 2"/>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <img src={slider3} className="w-100"/>
+                                <img src={slider3} className="d-block w-100" style={{ height: '500px', objectFit: 'cover' }} alt="Slide 3"/>
                             </Carousel.Item>
                         </Carousel>
                     </div>
+
 
                     <ProductSection title="Featured Product" products={featured}/>
 

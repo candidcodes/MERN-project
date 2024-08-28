@@ -12,13 +12,14 @@ dayjs.extend(RelativeTime)
 export const Detail = () => {
     const user = useSelector(state => state.user.value)
 
-
     const [product, setProduct] = useState({})
     const [similars, setSimilars] = useState({})
     const [imgLarge, setImgLarge] = useState('')
     const [loading, setLoading] = useState(true)
     const [comment, setComment] = useState('')
     const [rating, setRating] = useState(1)
+    const [avgRating, setAvgRating] = useState(0)
+    const [stars, setStars] = useState({5: 0, 4: 0, 3: 0, 2: 0, 1: 0})
 
     const params = useParams()
 
@@ -48,6 +49,28 @@ export const Detail = () => {
             .catch(() => {})
             .finally(() => setLoading(false))
     }
+
+    useEffect(() => {
+        if(product.reviews?.length > 0){
+            let totalRating = 0
+            let totalStars = {5: 0, 4: 0, 3: 0, 2: 0, 1: 0}
+
+            for(let review of product.reviews){
+                totalRating += review.rating
+                totalStars[review.rating] += 1
+            }
+            for(let i in totalStars){
+                totalStars[i] = totalStars[i] / product.reviews.length * 100
+            }
+
+            setAvgRating(totalRating/product.reviews.length)
+            setStars(totalStars)
+        }else{
+            setAvgRating(0)
+            setStars({5: 0, 4: 0, 3: 0, 2: 0, 1: 0})
+        }
+
+    }, [product])
 
     return loading ? <Loading /> : <div className="col-12">
         <main className="row">
@@ -141,55 +164,23 @@ export const Detail = () => {
                                         <div className="col-sm-4 text-center">
                                             <div className="row">
                                                 <div className="col-12 average-rating">
-                                                    4.1
+                                                    {avgRating.toFixed(1)}
                                                 </div>
                                                 <div className="col-12">
-                                                    of 100 reviews
+                                                    of {product.reviews?.length} reviews
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="col">
                                             <ul className="rating-list mt-3">
-                                                <li>
+                                                {[5, 4, 3, 2, 1].map(i => <li key={i} className="">
                                                     <div className="progress">
-                                                        <div className="progress-bar bg-dark" role="progressbar" style={{width: '45%'}} aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">45%</div>
+                                                        <div className="progress-bar bg-dark" role="progressbar" style={{width: `${stars[i]}%`}} aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">{(`${(stars[i]).toFixed(1)}`)}</div>
                                                     </div>
                                                     <div className="rating-progress-label">
-                                                        5<i className="fas fa-star ms-1"></i>
+                                                        {i}<i className="fas fa-star ms-1"></i>
                                                     </div>
-                                                </li>
-                                                <li>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-dark" role="progressbar" style={{width: '30%'}} aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                                                    </div>
-                                                    <div className="rating-progress-label">
-                                                        4<i className="fas fa-star ms-1"></i>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-dark" role="progressbar" style={{width: '15%'}} aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
-                                                    </div>
-                                                    <div className="rating-progress-label">
-                                                        3<i className="fas fa-star ms-1"></i>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-dark" role="progressbar" style={{width: '7%'}} aria-valuenow="7" aria-valuemin="0" aria-valuemax="100">7%</div>
-                                                    </div>
-                                                    <div className="rating-progress-label">
-                                                        2<i className="fas fa-star ms-1"></i>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="progress">
-                                                        <div className="progress-bar bg-dark" role="progressbar" style={{width: '3%'}} aria-valuenow="3" aria-valuemin="3" aria-valuemax="100">3%</div>
-                                                    </div>
-                                                    <div className="rating-progress-label">
-                                                        1<i className="fas fa-star ms-1"></i>
-                                                    </div>
-                                                </li>
+                                                </li>)}
                                             </ul>
                                         </div>
                                     </div>
@@ -243,7 +234,7 @@ export const Detail = () => {
                             <div className="row">
                                 <div className="col-12">
 
-                                    {product.reviews.length ? product.reviews.map(review => <div className="col-12 text-justify py-2 px-3 mb-3 bg-gray" key={review._id}>
+                                    {product.reviews.length ? product.reviews.slice().reverse().map(review => <div className="col-12 text-justify py-2 px-3 mb-3 bg-gray" key={review._id}>
                                         <div className="row">
                                             <div className="col-12">
                                                 <strong className="me-2">{review.user.name}</strong>

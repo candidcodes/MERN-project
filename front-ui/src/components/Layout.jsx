@@ -106,7 +106,7 @@ export const Layout = () => {
                       </li>
                     </ul> : <ul className="top-nav">
                       <li>
-                        <Link>
+                        <Link to="/register">
                           <i className="fas fa-user-edit me-2"></i>Register
                         </Link>
                       </li>
