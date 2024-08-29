@@ -14,10 +14,15 @@ import "./Layout.css";
 
 export const Layout = () => {
   const user = useSelector((state) => state.user.value);
+  const cart = useSelector((state) => state.cart.value);
+
   const [categories, setCategories] = useState([])
   const [brands, setBrands] = useState([])
   const [term, setTerm] = useState('')
   const [loading, setLoading] = useState(true);
+
+  const [totalQty, setTotalQty] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -67,6 +72,23 @@ export const Layout = () => {
     removeStorage('430fronttoken')
     dispatch(clearUser())
   }
+
+  useEffect(() => {
+    if(cart){
+      let tq = 0, tp = 0
+      for (let id in cart){
+        tq += cart[id].qty
+        tp += cart[id].total
+      }
+
+      setTotalQty(tq)
+      setTotalPrice(tp)
+
+    }else{
+      setTotalPrice(0)
+      setTotalQty(0)
+    }
+  }, [cart])
 
   return loading ? (
     <Loading />
@@ -150,12 +172,12 @@ export const Layout = () => {
                       <i className="fas fa-heart me-2"></i>
                       <span id="header-favorite">0</span>
                     </a>
-                    <a href="cart.html" className="header-item">
+                    <Link to="cart" className="header-item">
                       <i className="fas fa-shopping-bag me-2"></i>
-                      <span id="header-qty" className="me-3">2</span>
+                      <span id="header-qty" className="me-3">{totalQty}</span>
                       <i className="fas fa-money-bill-wave me-2"></i>
-                      <span id="header-price">$4,000</span>
-                    </a>
+                      <span id="header-price">{totalPrice} </span>
+                    </Link>
                   </div>
                 </div>
 

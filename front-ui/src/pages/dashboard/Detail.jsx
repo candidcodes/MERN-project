@@ -6,6 +6,7 @@ import { useSelector } from "react-redux"
 import { Link, NavLink, useParams } from "react-router-dom"
 import dayjs from "dayjs"
 import RelativeTime from "dayjs/plugin/relativeTime"
+import { CartBtn } from "@/components/CartBtn"
 
 dayjs.extend(RelativeTime)
 
@@ -18,6 +19,7 @@ export const Detail = () => {
     const [loading, setLoading] = useState(true)
     const [comment, setComment] = useState('')
     const [rating, setRating] = useState(1)
+    const [qty, setQty] = useState(1)
     const [avgRating, setAvgRating] = useState(0)
     const [stars, setStars] = useState({5: 0, 4: 0, 3: 0, 2: 0, 1: 0})
 
@@ -122,11 +124,11 @@ export const Detail = () => {
                                 <div className="col-xl-5 col-md-9 col-sm-3 col-5 mx-auto mt-3">
                                     <div className="mb-3">
                                         <label for="qty">Quantity</label>
-                                        <input type="number" id="qty" min="1" value="1" className="form-control" required />
+                                        <input type="number" id="qty" min="1" value={qty} className="form-control" required onChange={({ target }) => setQty(parseInt(target.value))}/>
                                     </div>
                                 </div>
                                 <div className="col-12 mt-3">
-                                    <button className="btn btn-outline-dark" type="button"><i className="fas fa-cart-plus me-2"></i>Add to cart</button>
+                                    <CartBtn product={product} qty={qty}/>
                                 </div>
                                 <div className="col-12 mt-3">
                                     <button className="btn btn-outline-secondary btn-sm" type="button"><i className="fas fa-heart me-2"></i>Add to wishlist</button>
