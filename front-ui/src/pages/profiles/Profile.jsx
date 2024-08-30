@@ -1,5 +1,5 @@
 import { Col, Tab, Tabs } from "react-bootstrap"
-import { Order, Reviews } from ".";
+import { Edit, Order, Password, Reviews } from ".";
 
 export const Profile = () => {
     return (
@@ -17,10 +17,10 @@ export const Profile = () => {
             <Reviews />
           </Tab>
           <Tab eventKey="profile" title="Edit Profile">
-            Orders
+            <Edit />
           </Tab>
           <Tab eventKey="password" title="Change Password">
-            Orders
+            <Password />
           </Tab>
         </Tabs>
       </Col>
