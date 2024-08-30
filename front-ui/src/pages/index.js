@@ -1,3 +1,4 @@
 import * as Dashboasrd from './dashboard'
 import * as Auth from './auth'
-export { Dashboasrd, Auth }
+import * as Profile from './profiles'
+export { Dashboasrd, Auth, Profile }

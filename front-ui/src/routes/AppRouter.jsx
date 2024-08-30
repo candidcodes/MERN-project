@@ -17,6 +17,7 @@ export const AppRouter = () => {
                 <Route path="products/:id" element={<Pages.Dashboasrd.Detail />}/>
 
                 <Route path="cart" element={<PrivateRoute element={<Pages.Dashboasrd.Cart />}/>}/>
+                <Route path="profile" element={<PrivateRoute element={<Pages.Profile.Profile />}/>}/>
                 
                 <Route path="login" element={<Pages.Auth.Login />} />
                 <Route path="register" element={<Pages.Auth.Register />} />

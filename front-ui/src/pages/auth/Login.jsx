@@ -34,7 +34,7 @@ export const Login = () => {
             })
             .then(({ data }) => {
                 dispatch(setUser(data))
-                navigate('/')
+                navigate('/profile')
             })
 
             .catch( ({ response }) => {

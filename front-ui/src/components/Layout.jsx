@@ -117,7 +117,7 @@ export const Layout = () => {
                   <div className="col-auto">
                     {user ? <ul className="top-nav">
                       <li>
-                        <Link>
+                        <Link to="profile">
                           <i className="fas fa-user-circle me-2"></i>{user.name}
                         </Link>
                       </li>

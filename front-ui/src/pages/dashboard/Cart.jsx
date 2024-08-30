@@ -74,7 +74,7 @@ export const Cart = () => {
     http.post('/checkout', data)
       .then(() => {
         dispatch(clearCart());
-        navigate("/");
+        navigate('/profile');
       })
       .catch(() => {})
       .finally(() => setLoading(false));
