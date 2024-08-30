@@ -219,139 +219,71 @@ export const Layout = () => {
           <Outlet />
 
           <div className="col-12 align-self-end">
-            <footer className="row">
-              <div className="col-12 bg-dark text-white pb-3 pt-5">
-                <div className="row">
-                  <div className="col-lg-2 col-sm-4 text-center text-sm-left mb-sm-0 mb-3">
-                    <div className="row">
-                      <div className="col-12">
-                        <div className="footer-logo">
-                          <a href="index.html">E-Commerce</a>
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <address>
-                          221B Baker Street
-                          <br />
-                          London, England
-                        </address>
-                      </div>
-                      <div className="col-12">
-                        <a href="#" className="social-icon">
-                          <i className="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" className="social-icon">
-                          <i className="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" className="social-icon">
-                          <i className="fab fa-pinterest-p"></i>
-                        </a>
-                        <a href="#" className="social-icon">
-                          <i className="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" className="social-icon">
-                          <i className="fab fa-youtube"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-3 col-sm-8 text-center text-sm-left mb-sm-0 mb-3">
-                    <div className="row">
-                      <div className="col-12">
-                        <h6 className="footer-title">Customer Care</h6>
-                      </div>
-                      <div className="col-12">
-                        <ul className="list-unstyled">
-                          <li>
-                            <a href="#">Contact Us</a>
-                          </li>
-                          <li>
-                            <a href="#">Terms and Conditions</a>
-                          </li>
-                          <li>
-                            <a href="#">Returns and Exchanges</a>
-                          </li>
-                          <li>
-                            <a href="#">Shipping and Delivery</a>
-                          </li>
-                          <li>
-                            <a href="#">Privacy Policy</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-3 col-sm-6 text-center text-sm-left mb-sm-0 mb-3">
-                    <div className="row">
-                      <div className="col-12">
-                        <h6 className="footer-title">Information</h6>
-                      </div>
-                      <div className="col-12">
-                        <ul className="list-unstyled">
-                          <li>
-                            <a href="#">About Us</a>
-                          </li>
-                          <li>
-                            <a href="#">Track My Order</a>
-                          </li>
-                          <li>
-                            <a href="#">Careers</a>
-                          </li>
-                          <li>
-                            <a href="#">Corporate Responsibility</a>
-                          </li>
-                          <li>
-                            <a href="#">Affiliate Program</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-4 col-sm-6 text-center text-sm-left mb-sm-0 mb-3">
-                    <div className="row">
-                      <div className="col-12">
-                        <h6 className="footer-title">Sign Up for Newsletter</h6>
-                      </div>
-                      <div className="col-12">
-                        <form action="#">
-                          <div className="input-group">
-                            <input
-                              type="text"
-                              className="form-control border-dark"
-                              placeholder="Email Address"
-                            />
-                            <button className="btn btn-outline-light">
-                              Subscribe
-                            </button>
-                          </div>
-                        </form>
-                      </div>
-                      <div className="col-12 pt-3">
-                        <h6 className="text-white">Payment Methods</h6>
-                        <div className="payment-icons">
-                          <a href="#">
-                            <img src="images/payment/visa.svg" alt="Visa" />
-                          </a>
-                          <a href="#">
-                            <img src="images/payment/mastercard.svg" alt="Mastercard" />
-                          </a>
-                          <a href="#">
-                            <img src="images/payment/paypal.svg" alt="Paypal" />
-                          </a>
-                          <a href="#">
-                            <img src="images/payment/amex.svg" alt="Amex" />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            <footer className="row bg-dark text-white py-5">
+              <div className="col-lg-3 col-md-6 mb-4">
+                <h5 className="mb-3">E-Commerce</h5>
+                <address>
+                  221B Baker Street<br />
+                  London, England
+                </address>
+                <div className="mt-3">
+                  <a href="#" className="social-icon me-2">
+                    <i className="fab fa-facebook-f"></i>
+                  </a>
+                  <a href="#" className="social-icon me-2">
+                    <i className="fab fa-twitter"></i>
+                  </a>
+                  <a href="#" className="social-icon me-2">
+                    <i className="fab fa-pinterest-p"></i>
+                  </a>
+                  <a href="#" className="social-icon me-2">
+                    <i className="fab fa-instagram"></i>
+                  </a>
+                  <a href="#" className="social-icon">
+                    <i className="fab fa-youtube"></i>
+                  </a>
                 </div>
               </div>
-              <div className="col-12 text-center bg-primary text-white py-3">
+
+              <div className="col-lg-3 col-md-6 mb-4">
+                <h5 className="mb-3">Customer Care</h5>
+                <ul className="list-unstyled">
+                  <li><a href="#" className="text-white text-decoration-none">Contact Us</a></li>
+                  <li><a href="#" className="text-white text-decoration-none">Terms and Conditions</a></li>
+                  <li><a href="#" className="text-white text-decoration-none">Returns and Exchanges</a></li>
+                  <li><a href="#" className="text-white text-decoration-none">Shipping and Delivery</a></li>
+                  <li><a href="#" className="text-white text-decoration-none">Privacy Policy</a></li>
+                </ul>
+              </div>
+
+              <div className="col-lg-3 col-md-6 mb-4">
+                <h5 className="mb-3">Information</h5>
+                <ul className="list-unstyled">
+                  <li><a href="#" className="text-white text-decoration-none">About Us</a></li>
+                  <li><a href="#" className="text-white text-decoration-none">Track My Order</a></li>
+                  <li><a href="#" className="text-white text-decoration-none">Careers</a></li>
+                  <li><a href="#" className="text-white text-decoration-none">Corporate Responsibility</a></li>
+                  <li><a href="#" className="text-white text-decoration-none">Affiliate Program</a></li>
+                </ul>
+              </div>
+
+              <div className="col-lg-3 col-md-6 mb-4">
+                <h5 className="mb-3">Newsletter</h5>
+                <form action="#">
+                  <div className="input-group">
+                    <input type="email" className="form-control" placeholder="Email Address" aria-label="Email Address" required />
+                    <button className="btn btn-primary" type="submit">Subscribe</button>
+                  </div>
+                  <small className="form-text text-white mt-2">Get the latest news and updates.</small>
+                </form>
+              </div>
+
+              <div className="col-12 text-center bg-primary text-white py-3 mt-4">
                 &copy; 2023 E-Commerce. All Rights Reserved.
               </div>
             </footer>
           </div>
+
         </div>
       </div>
     </>
